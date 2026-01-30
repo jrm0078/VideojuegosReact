@@ -6,7 +6,6 @@ import HomePage from './pages/HomePage';
 import GamesPage from './pages/GamesPage';
 import GameDetailPage from './pages/GameDetailPage';
 import FavoritesPage from './pages/FavoritesPage';
-import './App.css';
 
 function App() {
   const [favorites, setFavorites] = useState([]);
