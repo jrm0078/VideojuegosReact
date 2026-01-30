@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import { getGameDetail, getGameScreenshots } from '../services/gameService';
 
 export default function GameDetailPage({ onFavorite, favorites }) {
   const { gameId } = useParams();
-  const navigate = useNavigate();
   const [game, setGame] = useState(null);
   const [screenshots, setScreenshots] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,9 +51,9 @@ export default function GameDetailPage({ onFavorite, favorites }) {
     );
   }
 
-  const displayImage = selectedImage < screenshots.length 
+  const displayImage = (selectedImage < screenshots.length 
     ? screenshots[selectedImage].image 
-    : game.background_image;
+    : game.background_image) || 'https://via.placeholder.com/600x400';
 
   return (
     <div className="min-h-screen bg-primary py-12 px-4">
@@ -230,7 +229,7 @@ export default function GameDetailPage({ onFavorite, favorites }) {
         </div>
 
         {/* Descripción */}
-        {game.description || game.description_raw && (
+        {(game.description || game.description_raw) && (
           <div className="mt-12 bg-secondary p-8 rounded-lg">
             <h2 className="text-2xl font-bold text-white mb-4">Descripción</h2>
             <p className="text-gray-300 leading-relaxed">

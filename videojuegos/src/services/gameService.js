@@ -92,7 +92,7 @@ export const getGamesByGenre = async (genreId, page = 1) => {
   }
 };
 
-export default {
+const gameService = {
   getGames,
   getPopularGames,
   getGameDetail,
@@ -100,3 +100,5 @@ export default {
   getGenres,
   getGamesByGenre,
 };
+
+export default gameService;
