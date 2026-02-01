@@ -67,7 +67,6 @@ export default function HomePage({ onFavorite, favorites }) {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const videoRef = useRef(null);
 
   useEffect(() => {
     const fetchGames = async () => {
