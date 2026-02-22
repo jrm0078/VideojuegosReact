@@ -32,6 +32,7 @@ export default function Header() {
             {[
               { to: '/', label: 'Inicio' },
               { to: '/games', label: 'Todos los juegos' },
+              { to: '/publishers', label: 'Publishers' },
               { to: '/favorites', label: 'Favoritos' },
             ].map((item) => (
               <li key={item.to}>
@@ -99,6 +100,7 @@ export default function Header() {
           {[
             { to: '/', label: 'Inicio' },
             { to: '/games', label: 'Todos los juegos' },
+            { to: '/publishers', label: 'Publishers' },
             { to: '/favorites', label: '♥  Mis Favoritos' },
           ].map((item) => (
             <Link

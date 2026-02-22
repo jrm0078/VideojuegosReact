@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import GameCard from './GameCard';
+import GameCard from './GameCard.jsx';
 
 export default function Carousel({ games, onFavorite, favorites }) {
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -1,4 +1,4 @@
-import GameCard from '../components/GameCard';
+import GameCard from '../components/GameCard.jsx';
 import { Link } from 'react-router-dom';
 
 export default function FavoritesPage({ favorites, onFavorite }) {

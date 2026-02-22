@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import GamesPage from './pages/GamesPage';
-import GameDetailPage from './pages/GameDetailPage';
-import FavoritesPage from './pages/FavoritesPage';
+import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
+import HomePage from './pages/HomePage.jsx';
+import GamesPage from './pages/GamesPage.jsx';
+import GameDetailPage from './pages/GameDetailPage.jsx';
+import FavoritesPage from './pages/FavoritesPage.jsx';
+import TagsPage from './pages/TagsPage.jsx';
+import PublisherDetailPage from './pages/PublisherDetailPage.jsx';
+import PublishersPage from './pages/PublishersPage.jsx';
 
 function App() {
   const [favorites, setFavorites] = useState([]);
@@ -49,6 +52,9 @@ function App() {
             <Route path="/" element={<HomePage onFavorite={handleFavorite} favorites={favorites} />} />
             <Route path="/games" element={<GamesPage onFavorite={handleFavorite} favorites={favorites} />} />
             <Route path="/game/:gameId" element={<GameDetailPage onFavorite={handleFavorite} favorites={favorites} />} />
+            <Route path="/tag/:tagId" element={<TagsPage onFavorite={handleFavorite} favorites={favorites} />} />
+            <Route path="/publisher/:publisherId" element={<PublisherDetailPage onFavorite={handleFavorite} favorites={favorites} />} />
+            <Route path="/publishers" element={<PublishersPage />} />
             <Route path="/favorites" element={<FavoritesPage favorites={favorites} onFavorite={handleFavorite} />} />
           </Routes>
         </main>

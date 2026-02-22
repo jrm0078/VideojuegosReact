@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ErrorMessage from '../components/ErrorMessage';
-import { getGameDetail, getGameScreenshots } from '../services/gameService';
+import LoadingSpinner from '../components/LoadingSpinner.jsx';
+import ErrorMessage from '../components/ErrorMessage.jsx';
+import { getGameDetail, getGameScreenshots } from '../services/gameService.js';
 
 export default function GameDetailPage({ onFavorite, favorites }) {
   const { gameId } = useParams();
@@ -354,6 +354,40 @@ export default function GameDetailPage({ onFavorite, favorites }) {
                 </div>
               )}
 
+              {/* Tags */}
+              {game.tags && game.tags.length > 0 && (
+                <div>
+                  <p className="text-xs mb-2" style={{ color: 'rgba(212,197,208,0.4)' }}>Tags</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {game.tags.slice(0, 10).map((tag) => (
+                      <Link
+                        key={tag.id}
+                        to={`/tag/${tag.id}?name=${encodeURIComponent(tag.name)}`}
+                        className="text-xs px-2.5 py-0.5 rounded-full transition-all duration-300 hover:shadow-lg"
+                        style={{
+                          background: 'rgba(166,77,121,0.15)',
+                          border: '1px solid rgba(166,77,121,0.3)',
+                          color: '#d4c5d0',
+                          textDecoration: 'none',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(166,77,121,0.25)';
+                          e.currentTarget.style.borderColor = 'rgba(166,77,121,0.5)';
+                          e.currentTarget.style.color = '#fff';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'rgba(166,77,121,0.15)';
+                          e.currentTarget.style.borderColor = 'rgba(166,77,121,0.3)';
+                          e.currentTarget.style.color = '#d4c5d0';
+                        }}
+                      >
+                        {tag.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Plataformas */}
               {game.platforms && game.platforms.length > 0 && (
                 <div>
@@ -387,8 +421,34 @@ export default function GameDetailPage({ onFavorite, favorites }) {
               {/* Publicadores */}
               {game.publishers && game.publishers.length > 0 && (
                 <div>
-                  <p className="text-xs mb-1" style={{ color: 'rgba(212,197,208,0.4)' }}>Publicadores</p>
-                  <p className="text-sm font-semibold text-white">{game.publishers.map((p) => p.name).join(', ')}</p>
+                  <p className="text-xs mb-2" style={{ color: 'rgba(212,197,208,0.4)' }}>Publicadores</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {game.publishers.map((publisher) => (
+                      <Link
+                        key={publisher.id}
+                        to={`/publisher/${publisher.id}?name=${encodeURIComponent(publisher.name)}`}
+                        className="text-xs px-2.5 py-0.5 rounded-full transition-all duration-300 hover:shadow-lg"
+                        style={{
+                          background: 'rgba(166,77,121,0.12)',
+                          border: '1px solid rgba(166,77,121,0.25)',
+                          color: '#d4c5d0',
+                          textDecoration: 'none',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(166,77,121,0.22)';
+                          e.currentTarget.style.borderColor = 'rgba(166,77,121,0.4)';
+                          e.currentTarget.style.color = '#fff';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'rgba(166,77,121,0.12)';
+                          e.currentTarget.style.borderColor = 'rgba(166,77,121,0.25)';
+                          e.currentTarget.style.color = '#d4c5d0';
+                        }}
+                      >
+                        {publisher.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

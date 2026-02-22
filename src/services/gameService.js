@@ -92,6 +92,93 @@ export const getGamesByGenre = async (genreId, page = 1) => {
   }
 };
 
+// Obtener juegos por tags
+export const getGamesByTag = async (tagId, page = 1) => {
+  try {
+    const url = `${BASE_URL}/games?key=${API_KEY}&tags=${tagId}&page=${page}&page_size=20`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error en la solicitud');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al obtener juegos por tag:', error);
+    throw error;
+  }
+};
+
+// Obtener todos los tags disponibles
+export const getTags = async () => {
+  try {
+    const url = `${BASE_URL}/tags?key=${API_KEY}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error en la solicitud');
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error('Error al obtener tags:', error);
+    return [];
+  }
+};
+
+// Obtener detalles de un tag específico
+export const getTagDetail = async (tagId) => {
+  try {
+    const url = `${BASE_URL}/tags/${tagId}?key=${API_KEY}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error en la solicitud');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al obtener detalle del tag:', error);
+    throw error;
+  }
+};
+
+// Buscar publishers
+export const searchPublishers = async (search = '', page = 1) => {
+  try {
+    let url = `${BASE_URL}/publishers?key=${API_KEY}&page=${page}&page_size=20`;
+    if (search) {
+      url += `&search=${encodeURIComponent(search)}`;
+    }
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error en la solicitud');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al buscar publishers:', error);
+    throw error;
+  }
+};
+
+// Obtener detalles de un publisher
+export const getPublisherDetail = async (publisherId) => {
+  try {
+    const url = `${BASE_URL}/publishers/${publisherId}?key=${API_KEY}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error en la solicitud');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al obtener detalle del publisher:', error);
+    throw error;
+  }
+};
+
+// Obtener juegos de un publisher
+export const getGamesByPublisher = async (publisherId, page = 1) => {
+  try {
+    const url = `${BASE_URL}/games?key=${API_KEY}&publishers=${publisherId}&page=${page}&page_size=20`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error en la solicitud');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al obtener juegos del publisher:', error);
+    throw error;
+  }
+};
+
 const gameService = {
   getGames,
   getPopularGames,
@@ -99,6 +186,12 @@ const gameService = {
   getGameScreenshots,
   getGenres,
   getGamesByGenre,
+  getGamesByTag,
+  getTags,
+  getTagDetail,
+  searchPublishers,
+  getPublisherDetail,
+  getGamesByPublisher,
 };
 
 export default gameService;

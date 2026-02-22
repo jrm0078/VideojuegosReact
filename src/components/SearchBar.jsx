@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, placeholder = "Busca tu juego favorito...", suggestions = ['The Witcher 3', 'Elden Ring', 'Hades'] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [focused, setFocused] = useState(false);
 
@@ -46,7 +46,7 @@ export default function SearchBar({ onSearch }) {
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          placeholder="Busca tu juego favorito..."
+          placeholder={placeholder}
           className="flex-1 px-4 py-3.5 bg-transparent text-white text-sm outline-none"
           style={{
             color: '#fff',
@@ -95,7 +95,7 @@ export default function SearchBar({ onSearch }) {
           Prueba con:
         </span>
         <div className="flex flex-wrap gap-1.5">
-          {['The Witcher 3', 'Elden Ring', 'Hades'].map((sugg) => (
+          {suggestions.map((sugg) => (
             <button
               key={sugg}
               type="button"

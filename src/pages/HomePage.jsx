@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import Carousel from '../components/Carousel';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ErrorMessage from '../components/ErrorMessage';
-import { getPopularGames } from '../services/gameService';
+import Carousel from '../components/Carousel.jsx';
+import LoadingSpinner from '../components/LoadingSpinner.jsx';
+import ErrorMessage from '../components/ErrorMessage.jsx';
+import { getPopularGames } from '../services/gameService.js';
 import { Link } from 'react-router-dom';
 
 // Componente de partículas flotantes

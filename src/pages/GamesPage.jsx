@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
-import SearchBar from '../components/SearchBar';
-import GameCard from '../components/GameCard';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ErrorMessage from '../components/ErrorMessage';
-import { getGames } from '../services/gameService';
+import { useSearchParams } from 'react-router-dom';
+import SearchBar from '../components/SearchBar.jsx';
+import GameCard from '../components/GameCard.jsx';
+import LoadingSpinner from '../components/LoadingSpinner.jsx';
+import ErrorMessage from '../components/ErrorMessage.jsx';
+import { getGames } from '../services/gameService.js';
 
 export default function GamesPage({ onFavorite, favorites }) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalGames, setTotalGames] = useState(0);
   const PAGE_SIZE = 20;
+
+  const currentPage = Math.max(1, parseInt(searchParams.get('page')) || 1);
+  const searchTerm = searchParams.get('search') || '';
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -33,8 +36,12 @@ export default function GamesPage({ onFavorite, favorites }) {
   }, [searchTerm, currentPage]);
 
   const handleSearch = (term) => {
-    setSearchTerm(term);
-    setCurrentPage(1);
+    setSearchParams({ search: term, page: '1' });
+  };
+
+  const handlePageChange = (newPage) => {
+    setSearchParams({ search: searchTerm, page: newPage.toString() });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const totalPages = Math.ceil(totalGames / PAGE_SIZE);
@@ -143,7 +150,7 @@ export default function GamesPage({ onFavorite, favorites }) {
 
               {/* Anterior */}
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 style={{
@@ -196,7 +203,7 @@ export default function GamesPage({ onFavorite, favorites }) {
                     ) : (
                       <button
                         key={page}
-                        onClick={() => setCurrentPage(page)}
+                        onClick={() => handlePageChange(page)}
                         className="w-8 h-8 rounded-lg text-xs font-semibold transition-all duration-300 flex items-center justify-center"
                         style={{
                           background: currentPage === page
@@ -230,7 +237,7 @@ export default function GamesPage({ onFavorite, favorites }) {
 
               {/* Siguiente */}
               <button
-                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage >= totalPages}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 style={{
